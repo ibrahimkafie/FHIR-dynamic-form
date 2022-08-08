@@ -1,0 +1,30 @@
+<!-- Form Fields -->
+<ng-container *ngIf="!result; else resultView">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+    <div *ngFor="let question of questions" class="form-row">
+      <app-question [question]="question" [form]="form"></app-question>
+    </div>
+
+    <div class="form-row">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</ng-container>
+
+<!-- Form Result -->
+<ng-template #resultView>
+  <div class="d-flex justify-content-between">
+    <h4 class="text-muted d-inline-flex text-success">Results: </h4>
+    <button type="button" class="btn btn-success" (click)="result = undefined">Modify the result</button>
+  </div>
+
+  <div class="form-row">
+    <ng-container *ngFor="let item of result">
+      <p class="h5">
+        {{item.text}}
+        <strong class="text-secondary">{{item.value}}</strong>
+      </p>
+    </ng-container>
+  </div>
+</ng-template>

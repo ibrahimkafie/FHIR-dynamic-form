@@ -1,0 +1,42 @@
+<div [formGroup]="form" class="mb-4">
+  <label class="d-block">
+
+    <!-- Question -->
+    <p class="fw-semibold mb-2">{{question.text}} <span *ngIf="question.required" class="text-danger">*</span></p>
+
+    <!-- Control -->
+    <div [ngSwitch]="question.controlType">
+
+      <!-- Checkbox -->
+      <div *ngSwitchCase="questionType.Checkbox">
+        <label class="form-check-label">
+          <input class="form-check-input" [class.is-invalid]="isInvalid" type="radio" [name]="question.key"
+            [value]="true" [formControlName]="question.key">
+          Yes</label><br>
+
+        <label class="form-check-label">
+          <input class="form-check-input" [class.is-invalid]="isInvalid" type="radio" [name]="question.key"
+            [value]="false" [formControlName]="question.key">
+          No</label>
+      </div>
+
+      <!-- Datepicker -->
+      <input *ngSwitchCase="questionType.Datepicker" class="form-control" [class.is-invalid]="isInvalid"
+        [name]="question.key" type="date" [formControlName]="question.key">
+
+      <!-- Textbox -->
+      <input *ngSwitchCase="questionType.Textbox" class="form-control" [class.is-invalid]="isInvalid"
+        [name]="question.key" type="text" [formControlName]="question.key">
+
+      <!-- Dropdown -->
+      <select *ngSwitchCase="questionType.Select" class="form-select" [class.is-invalid]="isInvalid"
+        [name]="question.key" [formControlName]="question.key">
+        <option *ngFor="let opt of question.options" [value]="opt.value">{{opt.display}}</option>
+      </select>
+
+    </div>
+  </label>
+
+  <!-- Error state -->
+  <div class="text-danger" *ngIf="isInvalid">This field is required.</div>
+</div>
