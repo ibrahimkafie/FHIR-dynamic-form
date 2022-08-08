@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ControlBase, QuestionType } from './models';
 import { QuestionControlService } from './services';
 
@@ -19,7 +19,7 @@ export class DynamicFormComponent implements OnInit {
   /**
    * The form group.
    */
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   /**
    * The result of the form submit.
@@ -43,7 +43,7 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
-  private _formatFormFieldsResult(form: FormGroup, questions: ControlBase<string>[]) {
+  private _formatFormFieldsResult(form: UntypedFormGroup, questions: ControlBase<string>[]) {
     const fieldsData = form.getRawValue();
     return Object.keys(fieldsData).map(key => {
       const { text, controlType } = questions.find(q => q.key === key)!;
@@ -54,7 +54,7 @@ export class DynamicFormComponent implements OnInit {
     });
   }
 
-  private _validateAllFormFields(form: FormGroup) {
+  private _validateAllFormFields(form: UntypedFormGroup) {
     Object.keys(form.controls).forEach(field => {
       const control = form.get(field)!;
       control.markAsTouched({ onlySelf: true });

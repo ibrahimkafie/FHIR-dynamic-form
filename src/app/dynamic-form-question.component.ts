@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ControlBase, QuestionType } from './models';
 
 @Component({
@@ -11,7 +11,7 @@ export class DynamicFormQuestionComponent {
     return QuestionType;
   }
   @Input() question!: ControlBase<string>;
-  @Input() form!: FormGroup;
+  @Input() form!: UntypedFormGroup;
 
   /**
    * Whether the control is in a touched state and not valid.
